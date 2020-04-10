@@ -1,0 +1,136 @@
+.App {
+  text-align: center;
+  display: flex;
+  height: 100%;
+}
+
+.table {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.table .block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*justify-content: flex-start;*/
+  flex-wrap: wrap;
+}
+
+/*.table .block:after {*/
+/*  content: '';*/
+/*  width: 370px;*/
+/*}*/
+
+.table .clock {
+  width: 350px;
+  /*margin-right: 20px;*/
+  border: 1px solid #ddd;
+  background: #ebebeb;
+  padding: 10px 0;
+  font-size: 18px;
+  line-height: 2em;
+  height: 128px;
+  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.table .clock .close{
+  color: #666;
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 1em;
+  line-height: 1em;
+}
+
+.table .clock .close:hover {
+  color: #333;
+}
+
+.table .clock:hover .close {
+  display: block;
+}
+
+
+.table .clock .city {
+  min-height: 2em;
+  line-height: 2em;
+}
+
+.table .clock .time{
+  font-family: Consolas,Monaco,monospace;
+}
+
+.table .filling-dom {
+  background: none;
+  border: none;
+}
+
+.table .clock.add .time{
+  line-height: 4em;
+}
+
+.table .clock .time code {
+  background: none;
+}
+
+.table .clock code {
+  background-color: #f8f8f8;
+  border-radius: 2px;
+  color: #e96900;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  font-size: 0.8rem;
+  margin: 0 2px;
+  padding: 3px 5px;
+  white-space: pre-wrap;
+}
+
+.table .clock.add {
+  color: #666;
+}
+
+.table .clock.add .add-symbol {
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+}
+
+.table .clock.add .add-symbol:hover {
+  color: #333;
+}
+
+.selector-timezone {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  color: #000;
+  font-weight: normal;
+  box-shadow: 0 0 10px #ddd ;
+  max-height: 160px;
+  overflow: scroll;
+}
+
+.selector-timezone li {
+  background: #fff;
+  padding: 0 2em;
+  line-height: 2em;
+  font-size: 14px;
+}
+
+.selector-timezone li:hover {
+  color: #e96900;
+}
+
