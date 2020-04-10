@@ -328,10 +328,6 @@ module.exports = function (webpackEnv) {
             rules: [
                 // Disable require.ensure as it's not a standard language feature.
                 {parser: {requireEnsure: false}},
-
-                // for LESS
-                {test: /\.less$/, use: ['less-loader']},
-
                 // First, run the linter.
                 // It's important to do this before Babel processes the JS.
                 {
@@ -498,29 +494,24 @@ module.exports = function (webpackEnv) {
                             exclude: lessModuleRegex,
                             use: getStyleLoaders(
                                 {
-                                    importLoaders: 2,
+                                    importLoaders: 3,
                                     sourceMap: isEnvProduction && shouldUseSourceMap,
                                 },
                                 'less-loader'
                             ),
-                            // Don't consider CSS imports dead code even if the
-                            // containing package claims to have no side effects.
-                            // Remove this when webpack adds a warning or an error for this.
-                            // See https://github.com/webpack/webpack/issues/6571
                             sideEffects: true,
                         },
                         {
                             test: lessModuleRegex,
                             use: getStyleLoaders(
                                 {
-                                    importLoaders: 2,
+                                    importLoaders: 3,
                                     sourceMap: isEnvProduction && shouldUseSourceMap,
-                                    modules: {
-                                        getLocalIdent: getCSSModuleLocalIdent,
-                                    },
+                                    modules: true,
+                                    getLocalIdent: getCSSModuleLocalIdent,
                                 },
                                 'less-loader'
-                            ),
+                            )
                         },
                         // "file" loader makes sure those assets get served by WebpackDevServer.
                         // When you `import` an asset, you get its (virtual) filename.
