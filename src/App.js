@@ -1,3 +1,8 @@
+/**
+ * @file 世界时钟
+ */
+
+
 import React from 'react';
 import './App.css';
 import './App.less';
@@ -8,7 +13,9 @@ let count = 0 // 计数变量，用于判断是否发起时间同步请求
 function getLocalTime(i) {
     console.log(i)
     //参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
-    if (typeof i !== 'number') return;
+    if (typeof i !== 'number') {
+        return false
+    }
     var d = new Date();
     //得到1970年一月一日到现在的秒数
     var len = d.getTime();
@@ -45,9 +52,8 @@ class App extends React.Component {
                 timeStamp: getLocalTime(data.timezone)
             }
         })
-        console.log(this.state, '=======')
         this.state = {
-            adding: false,
+            isAdding: false,
             timeData,
             clocks: clocks_localStorage || [],
             cities: [
@@ -78,12 +84,9 @@ class App extends React.Component {
                 clocks: clocks_localStorage || []
             })
             this.updateTimeData(this.state.clocks)
-            console.log(this.state, '=======')
             if (count === 60) {
-                console.log('wait req')
                 count = 0
-                let res = await this.getTime(this.state.clocks)
-                console.log(res)
+                let res = await this.getTime(this.state.clocks);
                 if (res.code === 800) {
                     this.setState({
                         timeData: res.data
@@ -151,7 +154,7 @@ class App extends React.Component {
         this.setState({
             clocks,
             timeData,
-            adding: false
+            isAdding: false
         })
         // 更新本地缓存
         localStorage.setItem('world_clocks_data', JSON.stringify(clocks))
@@ -182,12 +185,10 @@ class App extends React.Component {
 
     // 显示时钟选项
     showSelection(e) {
-        console.log(e)
-        console.log('-----')
         e.nativeEvent.stopImmediatePropagation()
         e.stopPropagation()
         this.setState({
-            adding: true
+            isAdding: true
         })
     }
 
@@ -231,7 +232,9 @@ class App extends React.Component {
         console.log(timeData, '88888888')
         return (
             <div className="App" onClick={() => {
-                this.setState({adding: false})
+                this.setState({
+                    isAdding: false
+                })
             }}>
                 <div className="table">
                     <div className="block">
@@ -256,7 +259,7 @@ class App extends React.Component {
                             }}>
                                 +
                                 {
-                                    this.state.adding ?
+                                    this.state.isAdding ?
                                         this.renderSelection() : null
                                 }
                             </div>
