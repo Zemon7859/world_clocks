@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import './test.less'
+// import './test.less'
 // import './App.less';
 
 let count = 0 // 计数变量，用于判断是否发起时间同步请求
