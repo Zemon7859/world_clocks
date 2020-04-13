@@ -3,7 +3,7 @@
  */
 
 
-import React from 'react';
+import * as React from 'react';
 import './App.less';
 
 let count = 0 // 计数变量，用于判断是否发起时间同步请求
@@ -39,6 +39,10 @@ function timeStampHandler(timeStamp: number): object {
     }
 }
 
+// interface IValueObject {
+//     [key: string]: any
+// }
+
 interface IAppProps {
 
 }
@@ -51,11 +55,16 @@ interface IAppState {
 }
 
 class App extends React.Component<IAppProps, IAppState> {
-    constructor() {
-        super()
+    constructor(props: IAppProps, state: IAppState) {
+        super(props, state)
         let clocks_localStorage = JSON.parse(localStorage.getItem('world_clocks_data'))
         let timeData = {}
-        clocks_localStorage.forEach((data, index) => {
+        // for (let data of clocks_localStorage) {
+        //     timeData[data.place] = {
+        //         timeStamp: getLocalTime(data.timezone)
+        //     }
+        // }
+        clocks_localStorage.forEach((data) => {
             timeData[data.place] = {
                 timeStamp: getLocalTime(data.timezone)
             }
@@ -94,7 +103,7 @@ class App extends React.Component<IAppProps, IAppState> {
             this.updateTimeData(this.state.clocks)
             if (count === 60) {
                 count = 0
-                let res = await this.getTime(this.state.clocks);
+                let res: any = await this.getTime(this.state.clocks);
                 if (res.code === 800) {
                     this.setState({
                         timeData: res.data
@@ -110,7 +119,12 @@ class App extends React.Component<IAppProps, IAppState> {
     // 更新时间对象
     updateTimeData(clocks: object[]) {
         let timeData = {}
-        clocks.forEach((data, index) => {
+        // for (let data of clocks) {
+        //     timeData[data.place] = {
+        //         timeStamp: getLocalTime(data.timezone)
+        //     }
+        // }
+        clocks.forEach((data: any) => {
             timeData[data.place] = {
                 timeStamp: getLocalTime(data.timezone)
             }
@@ -130,9 +144,8 @@ class App extends React.Component<IAppProps, IAppState> {
                     error: '请求出错'
                 })
             } else {
-                console.log(111)
                 let timeData = {}
-                clocks.forEach((data, index) => {
+                clocks.forEach((data: any) => {
                     timeData[data.place] = {
                         timeStamp: getLocalTime(data.timezone)
                     }
@@ -146,7 +159,7 @@ class App extends React.Component<IAppProps, IAppState> {
     }
 
     // 添加时钟
-    addClock(e, item: object): void {
+    addClock(e, item: any): void {
         e.nativeEvent.stopImmediatePropagation()
         e.stopPropagation()
         let clocks = JSON.parse(JSON.stringify(this.state.clocks))
@@ -242,9 +255,9 @@ class App extends React.Component<IAppProps, IAppState> {
                             <div className="clock" key={index}>
                         <div className="city">{item.place}</div>
                             <div className="time">
-                        <code>{timeStampHandler(timeData[item.place].timeStamp).date}</code>
+                        <code>{timeStampHandler(timeData[item.place].timeStamp)['date']}</code>
                             <br/>
-                            <code>{timeStampHandler(timeData[item.place].timeStamp).time}</code>
+                            <code>{timeStampHandler(timeData[item.place].timeStamp)['time']}</code>
                             </div>
                             <span className="close" onClick={() => {
                                 this.deleteClock(index)
