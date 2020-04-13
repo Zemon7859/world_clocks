@@ -4,17 +4,15 @@
 
 
 import React from 'react';
-// import './App.css';
 import './App.less';
 
 let count = 0 // 计数变量，用于判断是否发起时间同步请求
 
 // 获取各时区时间
-function getLocalTime(i) {
-    console.log(i)
+function getLocalTime(i: number): number {
     //参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
     if (typeof i !== 'number') {
-        return false
+        return
     }
     var d = new Date();
     //得到1970年一月一日到现在的秒数
@@ -23,12 +21,11 @@ function getLocalTime(i) {
     var offset = d.getTimezoneOffset() * 60000;
     //得到现在的格林尼治时间
     var utcTime = len + offset;
-    console.log(new Date(utcTime + 3600000 * i))
     return new Date(utcTime + 3600000 * i).getTime();
 }
 
 // 时间处理
-function timeStampHandler(timeStamp) {
+function timeStampHandler(timeStamp: number): object {
     let timeObj = new Date(timeStamp)
     let year = timeObj.getFullYear()
     let month = timeObj.getMonth() + 1
@@ -101,10 +98,9 @@ class App extends React.Component {
     }
 
     // 更新时间对象
-    updateTimeData(clocks) {
+    updateTimeData(clocks: object[]) {
         let timeData = {}
         clocks.forEach((data, index) => {
-            console.log(data)
             timeData[data.place] = {
                 timeStamp: getLocalTime(data.timezone)
             }
@@ -112,11 +108,10 @@ class App extends React.Component {
         this.setState({
             timeData
         })
-        console.log(timeData)
     }
 
     // 模拟获取时间异步请求
-    async getTime(clocks) {
+    async getTime(clocks: object[]) {
         return new Promise(resolve => setTimeout(() => {
             let reqError = Math.random() <= 0.3
             if (reqError) {
@@ -141,7 +136,7 @@ class App extends React.Component {
     }
 
     // 添加时钟
-    addClock(e, item) {
+    addClock(e, item: object): void {
         e.nativeEvent.stopImmediatePropagation()
         e.stopPropagation()
         let clocks = JSON.parse(JSON.stringify(this.state.clocks))
@@ -162,7 +157,7 @@ class App extends React.Component {
     }
 
     // 本地按秒自动更新时间
-    localRefreshTime() {
+    localRefreshTime(): void {
         let timeData = JSON.parse(JSON.stringify(this.state.timeData))
         for (let place in timeData) {
             timeData[place].timeStamp += 1000
@@ -174,7 +169,7 @@ class App extends React.Component {
 
 
     // 删除时钟
-    deleteClock(index) {
+    deleteClock(index): void {
         let clocks = JSON.parse(JSON.stringify(this.state.clocks))
         clocks.splice(index, 1)
         // 更新本地缓存
@@ -185,7 +180,7 @@ class App extends React.Component {
     }
 
     // 显示时钟选项
-    showSelection(e) {
+    showSelection(e): void{
         e.nativeEvent.stopImmediatePropagation()
         e.stopPropagation()
         this.setState({
@@ -194,12 +189,12 @@ class App extends React.Component {
     }
 
     // 渲染行内补充元素保证布局整齐
-    renderFillingDom(count) {
+    renderFillingDom(count: number) {
         let dom = []
         for (let i = 0; i < count; i++) {
             dom.push(
                 <div className="clock filling-dom" key={i}></div>
-            )
+        )
         }
         return dom
     }
@@ -212,9 +207,9 @@ class App extends React.Component {
         cities.map((item, index) => {
             selections.push(
                 <li className="selections" key={index} onClick={(e) => {
-                    this.addClock(e, item)
-                }}>{item.place}</li>
-            )
+                this.addClock(e, item)
+            }}>{item.place}</li>
+        )
         })
 
         return (
@@ -222,7 +217,7 @@ class App extends React.Component {
                 {
                     selections
                 }
-            </ul>
+                </ul>
         )
     }
 
@@ -230,51 +225,50 @@ class App extends React.Component {
         const {clocks, timeData} = this.state
         let column = document.body.offsetWidth < 1500 ? 3 : 4
         const remainder = clocks.length > 0 && (column - clocks.length % column - 1)
-        console.log(timeData, '88888888')
         return (
             <div className="App" onClick={() => {
-                this.setState({
-                    isAdding: false
-                })
-            }}>
-                <div className="table">
-                    <div className="block">
-                        {
-                            clocks.map((item, index) => (
-                                <div className="clock" key={index}>
-                                    <div className="city">{item.place}</div>
-                                    <div className="time">
-                                        <code>{timeStampHandler(timeData[item.place].timeStamp).date}</code>
-                                        <br/>
-                                        <code>{timeStampHandler(timeData[item.place].timeStamp).time}</code>
-                                    </div>
-                                    <span className="close" onClick={() => {
-                                        this.deleteClock(index)
-                                    }}>X</span>
-                                </div>
-                            ))
-                        }
-                        <div className="clock add">
-                            <div className="city add-symbol" onClick={(e) => {
-                                this.showSelection(e)
-                            }}>
-                                +
-                                {
-                                    this.state.isAdding ?
-                                        this.renderSelection() : null
-                                }
-                            </div>
-                            <div className="time">--</div>
-                        </div>
-                        {
-                            remainder > 0 ? this.renderFillingDom(remainder) : null
-
-                        }
-
-                    </div>
-                </div>
+            this.setState({
+                isAdding: false
+            })
+        }}>
+        <div className="table">
+        <div className="block">
+            {
+                clocks.map((item, index) => (
+                    <div className="clock" key={index}>
+                <div className="city">{item.place}</div>
+                    <div className="time">
+                <code>{timeStampHandler(timeData[item.place].timeStamp).date}</code>
+        <br/>
+        <code>{timeStampHandler(timeData[item.place].timeStamp).time}</code>
+        </div>
+        <span className="close" onClick={() => {
+            this.deleteClock(index)
+        }}>X</span>
+        </div>
+    ))
+    }
+        <div className="clock add">
+        <div className="city add-symbol" onClick={(e) => {
+            this.showSelection(e)
+        }}>
+        +
+            {
+                this.state.isAdding ?
+                    this.renderSelection() : null
+            }
+        </div>
+        <div className="time">--</div>
             </div>
-        )
+        {
+            remainder > 0 ? this.renderFillingDom(remainder) : null
+
+        }
+
+        </div>
+        </div>
+        </div>
+    )
     }
 }
 
