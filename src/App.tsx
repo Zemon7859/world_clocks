@@ -39,8 +39,18 @@ function timeStampHandler(timeStamp: number): object {
     }
 }
 
+interface IAppProps {
 
-class App extends React.Component {
+}
+
+interface IAppState {
+    isAdding: boolean
+    timeData: object,
+    clocks: any,
+    cities: Array<any>
+}
+
+class App extends React.Component<IAppProps, IAppState> {
     constructor() {
         super()
         let clocks_localStorage = JSON.parse(localStorage.getItem('world_clocks_data'))
@@ -194,7 +204,7 @@ class App extends React.Component {
         for (let i = 0; i < count; i++) {
             dom.push(
                 <div className="clock filling-dom" key={i}></div>
-        )
+            )
         }
         return dom
     }
@@ -204,12 +214,10 @@ class App extends React.Component {
         const {cities} = this.state
         let selections = []
 
-        cities.map((item, index) => {
+        cities.forEach((item, index) => {
             selections.push(
-                <li className="selections" key={index} onClick={(e) => {
-                this.addClock(e, item)
-            }}>{item.place}</li>
-        )
+                <li className="selections" key={index} onClick={(e) => {this.addClock(e, item)}}>{item.place}</li>
+            )
         })
 
         return (
@@ -217,7 +225,7 @@ class App extends React.Component {
                 {
                     selections
                 }
-                </ul>
+            </ul>
         )
     }
 
@@ -226,47 +234,39 @@ class App extends React.Component {
         let column = document.body.offsetWidth < 1500 ? 3 : 4
         const remainder = clocks.length > 0 && (column - clocks.length % column - 1)
         return (
-            <div className="App" onClick={() => {
-            this.setState({
-                isAdding: false
-            })
-        }}>
-        <div className="table">
-        <div className="block">
-            {
-                clocks.map((item, index) => (
-                    <div className="clock" key={index}>
-                <div className="city">{item.place}</div>
-                    <div className="time">
-                <code>{timeStampHandler(timeData[item.place].timeStamp).date}</code>
-        <br/>
-        <code>{timeStampHandler(timeData[item.place].timeStamp).time}</code>
-        </div>
-        <span className="close" onClick={() => {
-            this.deleteClock(index)
-        }}>X</span>
-        </div>
-    ))
-    }
-        <div className="clock add">
-        <div className="city add-symbol" onClick={(e) => {
-            this.showSelection(e)
-        }}>
-        +
-            {
-                this.state.isAdding ?
-                    this.renderSelection() : null
-            }
-        </div>
-        <div className="time">--</div>
+            <div className="App" onClick={() => {this.setState({isAdding: false})}}>
+            <div className="table">
+                <div className="block">
+                    {
+                        clocks.map((item, index) => (
+                            <div className="clock" key={index}>
+                        <div className="city">{item.place}</div>
+                            <div className="time">
+                        <code>{timeStampHandler(timeData[item.place].timeStamp).date}</code>
+                            <br/>
+                            <code>{timeStampHandler(timeData[item.place].timeStamp).time}</code>
+                            </div>
+                            <span className="close" onClick={() => {
+                                this.deleteClock(index)
+                            }}>X</span>
+                            </div>
+                        ))
+                    }
+                <div className="clock add">
+                    <div className="city add-symbol" onClick={(e) => {this.showSelection(e)}}>
+                        +
+                        {
+                            this.state.isAdding ?
+                                this.renderSelection() : null
+                        }
+                    </div>
+                    <div className="time">--</div>
+                </div>
+                {
+                    remainder > 0 ? this.renderFillingDom(remainder) : null
+                }
+                </div>
             </div>
-        {
-            remainder > 0 ? this.renderFillingDom(remainder) : null
-
-        }
-
-        </div>
-        </div>
         </div>
     )
     }
