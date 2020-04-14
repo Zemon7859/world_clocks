@@ -57,7 +57,7 @@ interface IAppState {
 class App extends React.Component<IAppProps, IAppState> {
     constructor(props: IAppProps, state: IAppState) {
         super(props, state)
-        let clocks_localStorage = JSON.parse(localStorage.getItem('world_clocks_data'))
+        let clocks_localStorage = JSON.parse(localStorage.getItem('world_clocks_data') || "[]")
         let timeData = {}
         // for (let data of clocks_localStorage) {
         //     timeData[data.place] = {
