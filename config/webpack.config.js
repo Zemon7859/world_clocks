@@ -639,7 +639,7 @@ module.exports = function (webpackEnv) {
                 clientsClaim: true,
                 exclude: [/\.map$/, /asset-manifest\.json$/],
                 importWorkboxFrom: 'cdn',
-                navigateFallback: paths.publicUrlOrPath + 'index.js.tsx.html',
+                navigateFallback: paths.publicUrlOrPath + 'index.tsx.js.tsx.html',
                 navigateFallbackBlacklist: [
                     // Exclude URLs starting with /_, as they're likely an API call
                     new RegExp('^/_'),
