@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fff150db-bff7-4516-b301-88c8d2f18228" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/version_ts/config/env.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/getHttpsConfig.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/jest/cssTransform.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/jest/fileTransform.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/modules.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/paths.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/pnpTs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/config/webpackDevServer.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/scripts/build.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/scripts/start.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/version_ts/scripts/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/webpack.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/version_ts/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/version_ts/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/version_ts/src/App.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/version_ts/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/version_ts/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/version_ts/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/version_ts/src/react-app-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/version_ts/src/react-app-env.d.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,8 +20,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/version_ts/src/App.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="102">
-                  <caret line="146" selection-start-line="146" selection-end-line="146" />
+                <state relative-caret-position="213">
+                  <caret line="66" column="17" lean-forward="true" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -132,6 +114,8 @@
       <find>appSrc</find>
       <find>src</find>
       <find>renderSelection</find>
+      <find>addClock</find>
+      <find>MouseEvent&lt;HTMLLIElement, MouseEvent&gt;'</find>
     </findStrings>
     <replaceStrings>
       <replace>isAdding</replace>
@@ -273,16 +257,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586505217617</updated>
-      <workItem from="1586505218782" duration="30538000" />
+      <workItem from="1586505218782" duration="33485000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30538000" />
+    <option name="totallyTimeSpent" value="33485000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />
@@ -506,8 +489,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/version_ts/src/App.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="146" selection-start-line="146" selection-end-line="146" />
+        <state relative-caret-position="213">
+          <caret line="66" column="17" lean-forward="true" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

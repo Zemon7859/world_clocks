@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './App.less';
-import { IClock } from './types'
+import {IClock} from './types'
 import Clock from './components/clock'
-import {ReactNode} from "react";
+import {ReactEventHandler, ReactHTMLElement, ReactNode} from "react";
+
 // import {number} from "prop-types";
 
 interface IAppProps {
@@ -69,7 +70,8 @@ class App extends React.Component<IAppProps, IAppState> {
     }
 
     // 添加时钟
-    addClock(item: IClock): void {
+    addClock = (e: MouseEvent<HTMLLIElement, MouseEvent>, item: IClock): void => {
+        console.log(e)
         // e.nativeEvent.stopImmediatePropagation()
         // e.stopPropagation()
         let clocks = JSON.parse(JSON.stringify(this.state.clocks))
@@ -122,12 +124,12 @@ class App extends React.Component<IAppProps, IAppState> {
 
     // 渲染下拉列表 选择时区
     renderSelection(): React.ReactNode {
-        const { cities } = this.state
+        const {cities} = this.state
         let selections: Array<React.ReactNode> = []
 
         cities.forEach((item, index) => {
             selections.push(
-                <li className="selections" key={index} onClick={() => {this.addClock(item)}}>{item.place}</li>
+                <li className="selections" key={index} onClick={(e) => this.addClock(e, item)}>{item.place}</li>
             )
         })
 
@@ -141,7 +143,7 @@ class App extends React.Component<IAppProps, IAppState> {
     }
 
     render() {
-        const { clocks } = this.state
+        const {clocks} = this.state
         let column = document.body.offsetWidth < 1440 ? 3 : 4
         const remainder: number | boolean = clocks.length > 0 && (column - clocks.length % column - 1)
         return (
@@ -150,16 +152,18 @@ class App extends React.Component<IAppProps, IAppState> {
                     {
                         clocks.map((clock: IClock, index: number) => (
                             <Clock
-                                key = {'clock' + index}
-                                index = {index}
-                                place = {clock.place}
-                                timezone = {clock.timezone}
-                                deleteClock = { (index: number) => this.deleteClock(index)}
+                                key={'clock' + index}
+                                index={index}
+                                place={clock.place}
+                                timezone={clock.timezone}
+                                deleteClock={(index: number) => this.deleteClock(index)}
                             />
                         ))
                     }
                     <div className="clock add">
-                        <div className="city add-symbol" onClick={() => {this.showSelection()}}>
+                        <div className="city add-symbol" onClick={() => {
+                            this.showSelection()
+                        }}>
                             +
                             {
                                 this.state.isAdding ?
